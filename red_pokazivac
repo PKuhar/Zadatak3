@@ -1,0 +1,56 @@
+#include <string>
+using namespace std;
+
+struct klijenti{
+       int ai, bi, ci, di;
+       string ime_klijenta;
+       int datum;
+       float devizni_racun, tekuci_racun;
+       };
+
+struct qu{
+       klijenti element;
+       qu *sljedeci;
+       };
+       
+struct qu1 {
+       qu *kursor_prvi, *kursor_zadnji;
+       };
+       
+typedef qu1 queue;
+
+klijenti FrontQ(queue *Q){
+         klijenti prvi;
+         prvi = Q->kursor_prvi->sljedeci->element;
+         return prvi;
+         }
+
+void EnQueue(klijenti x, queue *Q){
+     qu* novi = new qu;
+     novi->element = x;
+     novi->sljedeci = NULL;
+     Q->kursor_zadnji->sljedeci = novi;
+     Q->kursor_zadnji = novi;
+     }
+     
+void DeQueue(queue *Q){
+     qu* izbrisi = Q->kursor_prvi;
+     Q->kursor_prvi = izbrisi->sljedeci;
+     delete izbrisi;
+     }
+
+queue* InitQ(queue *Q){
+     Q = new queue;
+     qu* novi = new qu;
+     Q->kursor_prvi = novi;
+     Q->kursor_zadnji = novi;
+     Q->kursor_prvi->sljedeci = NULL;
+     return Q;
+     }
+
+bool IsEmptyQ(queue *Q){
+     if(Q->kursor_prvi == Q->kursor_zadnji){
+                       return true;}
+     else{
+           return false;
+           }}
