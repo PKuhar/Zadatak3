@@ -1,0 +1,53 @@
+Zadatak3
+========
+#include <string>
+using namespace std;
+
+struct klijenti{
+       int ai, bi, ci, di;
+       string ime_klijenta;
+       int datum;
+       float devizni_racun, tekuci_racun;
+       };
+       
+struct qu{
+       klijenti polje[100];
+       int kursor_prvi, kursor_zadnji;
+       };
+       
+typedef qu queue;
+
+klijenti FrontQ(queue *Q) {
+         klijenti prvi;
+         prvi = Q->polje[Q->kursor_prvi];
+         return prvi;
+         }
+         
+queue* InitQ(queue *Q){
+     Q = new queue;
+     Q->kursor_prvi=0;
+     Q->kursor_zadnji=99;
+     return Q;
+     }
+
+int AddOne(int n){
+    return ( (n+1) % 100);
+}
+
+bool IsEmpty(queue *Q){
+     if(AddOne(Q->kursor_prvi) == Q->kursor_zadnji) return true;
+     return false;
+     }
+     
+void EnQueueQ(klijenti x, queue *Q){
+     Q->kursor_zadnji = AddOne(Q->kursor_zadnji);
+     Q->polje[Q->kursor_zadnji] = x;
+     }
+     
+void DeQueueQ(queue *Q){
+     Q->kursor_prvi = AddOne(Q->kursor_prvi);     
+     }
+     
+
+     
+       
